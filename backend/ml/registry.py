@@ -23,16 +23,18 @@ class MLRegistry:
                       algorithm_description, algorithm_code):
 
         # get endpoint
-        params = {"name": endpoint_name, "owner": owner}
-        endpoint, _ = self.get_or_create(EndPoint, **params)
+        query_params = {"name": endpoint_name, "owner": owner}
+        endpoint, _ = self.get_or_create(EndPoint, **query_params)
 
-        params = {"name": algorithm_name,
-                  "description": algorithm_description,
-                  "code": algorithm_code,
-                  "version": algorithm_version,
-                  "owner": owner,
-                  "parent_endpoint": endpoint.id}
-        database_object, algorithm_created = self.get_or_create(MLAlgorithm, **params)
+        query_params = {
+            "name": algorithm_name,
+            "description": algorithm_description,
+            "code": algorithm_code,
+            "version": algorithm_version,
+            "owner": owner,
+            "parent_endpoint": endpoint.id
+        }
+        database_object, algorithm_created = self.get_or_create(MLAlgorithm, **query_params)
         print("--------------", database_object, "--------------")
         if algorithm_created:
             status = MLAlgorithmStatus(
@@ -46,4 +48,3 @@ class MLRegistry:
             self.db.refresh(status)
 
         self.endpoints[database_object.id] = algorithm_object
-

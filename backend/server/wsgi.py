@@ -27,8 +27,7 @@ def register_algo(db):
                                algorithm_version="0.0.1",
                                owner="Piotr",
                                algorithm_description="Extra Trees with simple pre- and post-processing",
-                               algorithm_code=inspect.getsource(ExtraTreesClassifier)
-                               )
+                               algorithm_code=inspect.getsource(ExtraTreesClassifier))
 
         return registry
 
