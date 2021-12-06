@@ -3,27 +3,14 @@ from pydantic import BaseModel
 
 
 # Request and Responses Schema
+
+# Default Response
 class DefaultResponse(BaseModel):
     status: Optional[str]
     message: Optional[str]
 
 
-class EndPointBase(BaseModel):
-    name: str
-    owner: str
-
-
-class EndPointCreate(EndPointBase):
-    pass
-
-
-class EndPoint(EndPointBase):
-    id: int
-
-    class Config:
-        orm_mode = True
-
-
+# predict
 class PredictCreate(BaseModel):
     data: Dict = {}
 
@@ -38,6 +25,7 @@ class PredictResponse(BaseModel):
     response: Optional[DefaultResponse] = None
 
 
+# add_abtest
 class ABTestCreate(BaseModel):
     title: str
     created_by: str
@@ -53,11 +41,13 @@ class ABTestResponse(BaseModel):
     response: Optional[DefaultResponse] = None
 
 
+# stop_abtest
 class StopABTestResponse(BaseModel):
     response: Optional[DefaultResponse] = None
     summary: Optional[str]
 
 
+# put_mlrequest
 class MLRequestCreate(BaseModel):
     feedback: Optional[str]
 
@@ -68,4 +58,12 @@ class MLRequestCreate(BaseModel):
 class MLRequestResponse(BaseModel):
     response: Optional[DefaultResponse] = None
 
+
+# query and values
+class QueryParams(BaseModel):
+    data: Optional[Dict] = {}
+
+
+class Values(BaseModel):
+    data: Optional[Dict] = {}
 

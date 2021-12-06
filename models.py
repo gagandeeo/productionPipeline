@@ -5,14 +5,6 @@ from sqlalchemy.orm import relationship
 
 
 class EndPoint(Base):
-    """
-    The Endpoint object represents ML API endpoint.
-
-    Attributes:
-        name: The name of the endpoint, it will be used in API URL,
-        owner: The string with owner name,
-        created_at: The date when endpoint was created.
-    """
     __tablename__ = "endpoints"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -26,18 +18,6 @@ class EndPoint(Base):
 
 
 class MLAlgorithm(Base):
-    """
-    The MLAlgorithm represent the ML algorithm object.
-
-    Attributes:
-        name: The name of the algorithm.
-        description: The short description of how the algorithm works.
-        code: The code of the algorithm.
-        version: The version of the algorithm similar to software versioning.
-        owner: The name of the owner.
-        created_at: The date when MLAlgorithm was added.
-        parent_endpoint: The reference to the Endpoint.
-    """
     __tablename__ = "mlalgorithms"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -57,17 +37,6 @@ class MLAlgorithm(Base):
 
 
 class MLAlgorithmStatus(Base):
-    """
-    The MLAlgorithmStatus represent status of the MLAlgorithm which can change during the time.
-
-    Attributes:
-        status: The status of algorithm in the endpoint. Can be: testing, staging, production, ab_testing.
-        active: The boolean flag which point to currently active status.
-        created_by: The name of creator.
-        created_at: The date of status creation.
-        parent_mlalgorithm: The reference to corresponding MLAlgorithm.
-
-    """
     __tablename__ = "mlalgorithmstatus"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -83,17 +52,6 @@ class MLAlgorithmStatus(Base):
 
 
 class MLRequest(Base):
-    """
-    The MLRequest will keep information about all requests to ML algorithms.
-
-    Attributes:
-        input_data: The input data to ML algorithm in JSON format.
-        full_response: The response of the ML algorithm.
-        response: The response of the ML algorithm in JSON format.
-        feedback: The feedback about the response in JSON format.
-        created_at: The date when request was created.
-        parent_mlalgorithm: The reference to MLAlgorithm used to compute response.
-    """
     __tablename__ = "mlrequests"
 
     id = Column(Integer, primary_key=True, index=True)

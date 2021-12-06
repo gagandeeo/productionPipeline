@@ -14,7 +14,7 @@ def add_abtest(db: Session, values: schemas.ABTestCreate):
     return abtest
 
 
-def get_update_abtest(db: Session, query_params: dict, values: dict):
+def get_update_abtest(db: Session, query_params: schemas.QueryParams, values: schemas.Values):
     ab_test = db.query(models.ABTest).filter(
         models.ABTest.id == query_params["item_id"]
     ).update(values)
@@ -23,7 +23,7 @@ def get_update_abtest(db: Session, query_params: dict, values: dict):
     return ab_test
 
 
-def get_abtest(db: Session, query_params: dict):
+def get_abtest(db: Session, query_params: schemas.QueryParams):
     abtest = db.query(models.ABTest).filter(
         models.ABTest.id == query_params["item_id"]
     ).first()
@@ -31,7 +31,7 @@ def get_abtest(db: Session, query_params: dict):
     return abtest
 
 
-def add_mlrequest(db: Session, values: dict):
+def add_mlrequest(db: Session, values: schemas.Values):
 
     ml_request = models.MLRequest()
     ml_request.__dict__.update(values)
@@ -42,7 +42,7 @@ def add_mlrequest(db: Session, values: dict):
     return ml_request
 
 
-def get_mlrequest(db: Session, query_param: dict):
+def get_mlrequest(db: Session, query_param: schemas.QueryParams):
     mlrequests = db.query(models.MLRequest).filter(
         and_(
             models.MLRequest.parent_mlalgorithm == query_param["parent_mlalgorithm"],
@@ -54,7 +54,7 @@ def get_mlrequest(db: Session, query_param: dict):
     return mlrequests
 
 
-def get_update_mlrequest(db: Session, query_params: dict, values: dict):
+def get_update_mlrequest(db: Session, query_params: schemas.QueryParams, values: schemas.Values):
     mlrequest = db.query(models.MLRequest).filter(
         models.MLRequest.id == query_params["item_id"]
     ).update(values)
@@ -63,7 +63,7 @@ def get_update_mlrequest(db: Session, query_params: dict, values: dict):
     return mlrequest
 
 
-def get_update_mlalgorithmstatus(db: Session, query_params: dict, values: dict):
+def get_update_mlalgorithmstatus(db: Session, query_params: schemas.QueryParams, values: schemas.Values):
     if query_params["created_by"]:
         algo_status = db.query(models.MLAlgorithmStatus).filter(
             and_(
@@ -81,7 +81,7 @@ def get_update_mlalgorithmstatus(db: Session, query_params: dict, values: dict):
     return algo_status
 
 
-def get_algos(db: Session, query_params: dict):
+def get_algos(db: Session, query_params: schemas.QueryParams):
     endpoints = db.query(models.EndPoint.id).filter(
         and_(
             models.EndPoint.name == query_params["endpoint_name"],
